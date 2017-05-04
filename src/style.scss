@@ -1,0 +1,24 @@
+.vue-camera {
+  display: block;
+  height: 100%;
+  background: #fff;
+  position: relative;
+  .camera-hidden {
+    width: 100%;
+    height: 44px;
+    overflow: hidden;
+    position: relative;
+    font-size: 14px;
+    text-align: center;
+    line-height: 44px;
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      z-index: 999;
+    }
+  }
+}
