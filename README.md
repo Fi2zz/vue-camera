@@ -1,12 +1,17 @@
 # vue-camera
-原理：使用了input標簽，type=file 和 capture="camera" 屬性
+原理：使用`input`的`type=file` & `capture="camera"` 属性
 
-<input accept="image/*" capture="camera" type="file">
+|prop | type | description|
+|----  	|----   	|----		  	      |
+|label		|String	| 点击拍照按钮文字    |
+|preview  |Boolean  | 开启预览，默认false |
+|change   |Event    | 拍照完毕后调用	   |
 
-@params label     按鈕文字
+`v-model`返回一个`FileList`对象
 
-@params preview   開啓預覽 默認為false
+在部分安卓机上可能会弹出对话框选择使用`相册`还是`拍照`，选`拍照`即可
 
-@params v-model   一個FileList對象
 
-@method change   拍照完畢后點擊使用照片后調用  
+
+
+

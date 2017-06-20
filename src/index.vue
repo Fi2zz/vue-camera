@@ -4,7 +4,7 @@
             {{label}}
             <input accept="image/*" capture="camera" type="file" @change="change">
         </div>
-        <div v-if="preview" class="camera-preview" :id="uuid"></div>
+        <div v-show="preview" class="camera-preview" :id="uuid"></div>
     </div>
 </template>
 <style lang="scss" src="./style.scss" scoped></style>
@@ -13,14 +13,9 @@
         props: {
             label: {
                 type: String,
-                default: '點擊拍照'
+                default: 'TAKE PHOTO'
             },
             preview: Boolean
-        },
-        data(){
-            return {
-                emitter: {}
-            }
         },
         created(){
             this.uuid = 'camera-' + Math.random().toString(36).substring(3, 8)
