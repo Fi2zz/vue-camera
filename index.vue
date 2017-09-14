@@ -4,7 +4,7 @@
             {{label}}
             <input accept="image/*" capture="camera" type="file" @change="change">
         </div>
-        <div v-show="preview" class="camera-preview" :id="uuid"></div>
+        <div v-show="preview" class="camera-preview" ref="preview"></div>
     </div>
 </template>
 <style lang="scss" src="./style.scss" scoped></style>
@@ -17,31 +17,45 @@
             },
             preview: Boolean
         },
-        created(){
-            this.uuid = 'camera-' + Math.random().toString(36).substring(3, 8)
+        data() {
+            return {
+                picture: {}
+            }
+        },
+
+        watch: {
+            picture: {
+                deep: true,
+                handler(picture) {
+                    this.$emit('input', picture);
+                    this.$emit('change')
+                    this.preview(picture)
+                }
+            }
         },
         methods: {
-            change(e){
+            change(e) {
                 const picture = e.target.files || e.dataTransfer.files;
                 if (!picture.length) {
                     return
                 }
-                this.$emit('input',picture)
-                if (this.preview) {
-                    this.onPreview(picture)
-                }
+
+                this.picture = picture
             },
-            onPreview(picture){
+            preview(picture) {
                 const reader = new FileReader();
                 reader.readAsDataURL(picture[0]);
-                reader.addEventListener('load', ()=> {
+                reader.addEventListener('load', () => {
                     this.createPreviewField(reader.result);
                 });
             },
-            createPreviewField(src){
-                this.photo = document.createElement('img');
-                document.getElementById(this.uuid).appendChild(this.photo);
-                this.photo.src = src
+            createPreviewField(src) {
+                let photo;
+                if (!photo) {
+                    photo = document.createElement('img');
+                    this.$refs['preview'].appendChild(photo);
+                }
+                photo.src = src
             }
         }
     }
